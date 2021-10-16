@@ -2,9 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import VueApexCharts from 'vue3-apexcharts';
 
-import 'vfonts/Lato.css'
-// Monospace Font
-import 'vfonts/FiraCode.css'
+import 'element-plus/dist/index.css'
 
 const app = createApp(App);
 app.use(VueApexCharts);

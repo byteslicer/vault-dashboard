@@ -1,11 +1,17 @@
 <template>
-    <NCard>
+    <ElCard>
         <slot></slot>
-    </NCard>
+    </ElCard>
 </template>
 
-<script setup>
-import { NCard } from 'naive-ui';
+<script>
+import { ElCard } from 'element-plus'
+
+export default {
+    components: { ElCard },
+    props: {
+    }
+}
 
 </script>
 

@@ -8,20 +8,18 @@
 </template>
 
 <script>
-import Grid from './components/Grid.vue'
-import Chart from './components/Chart.vue'
-// import Test from './components/Test.vue'
+import Grid from './components/Grid.vue';
+import Chart from './components/Chart.vue';
+// import Test from './components/Test.vue';
 
 export default {
   name: 'App',
   components: {
     Grid,
     Chart,
-    // Test
-  }
-}
+    // Test,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
