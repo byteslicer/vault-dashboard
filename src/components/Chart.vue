@@ -1,52 +1,76 @@
 <template>
   <apexchart
     width="100%"
-    :height="heightPx"
     type="line"
     :options="options"
     :series="series"
+    @mouseover="setToolsVisible(true)"
+    @mouseout="setToolsVisible(false)"
   ></apexchart>
 </template>
 
-<script>
-import { inject, ref, watch, computed } from 'vue';
+<script lang="ts">
+import { ref, defineComponent, Ref, computed, toRaw } from 'vue';
 import axios from 'axios';
 
-export default {
-  setup(props) {
-    const height = ref(300 - 80);
-    const heightPx = computed(() =>
-      height.value ? `${height.value}px ` : '100px'
-    );
-
-    const grid = inject('Grid');
-
-    watch(grid, grid => {
-      if (!grid) {
-        return;
-      }
-
-      grid.on('resizestop', function(event, el) {
-        if (el.id === props.gridId) {
-          height.value = el.clientHeight - 80;
-          console.log('resize');
-        }
-      });
-    });
-
-    const options = {
+export default defineComponent({
+  setup() {
+    const toolBarVisible = ref(false);
+    const options = computed(() => ({
       chart: {
         id: 'vuechart-example',
+        background: 'var(--el-card-background-color)',
+        foreColor: '#93A1A1',
+        toolbar: {
+          show: toolBarVisible.value,
+          tools: {
+            download: false,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true,
+          },
+        },
       },
       xaxis: {
         type: 'datetime',
       },
-      // xaxis: {
-      //   categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-      // }
-    };
+      yaxis: {
+        labels: {
+          formatter: (value: number) => value.toFixed(),
+        },
+      },
+      colors: [
+        '#268BD2', // Blue
+        '#D33682', // Magenta
+        '#B58900', // Orange
+        '#CB4B16', // Red
+        '#DC322F', // Yellow
+        '#6C71C4', // Violet
+        '#2AA198', // Cyan
+        '#859900', // Green
+      ],
+      theme: {
+        mode: 'dark',
+      },
+      stroke: {
+        show: true,
+        curve: 'straight',
+        lineCap: 'butt',
+        colors: undefined,
+        width: 2,
+        dashArray: 0,
+      },
+      grid: {
+        show: true,
+        borderColor: '#586E75',
+        strokeDashArray: 2,
+      },
+    }));
 
-    const series = ref([]);
+    const series: Ref<Record<string, any>> = ref([]);
 
     axios
       .get(
@@ -61,13 +85,17 @@ export default {
         ];
       });
 
+    const setToolsVisible = (visible: boolean) => {
+      toolBarVisible.value = visible;
+    };
+
     return {
       series,
       options,
-      heightPx,
+      setToolsVisible,
     };
   },
-};
+});
 </script>
 
 <style></style>

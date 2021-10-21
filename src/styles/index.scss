@@ -1,0 +1,34 @@
+@import 'colors';
+@import 'element/index';
+@import 'flex';
+
+:root {
+  --main-background-color: #002b36;
+}
+
+#app {
+  background-color: var(--main-background-color);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+h1,
+p {
+  margin: 0 0 1em;
+}
+
+.nav {
+  display: flex;
+}
+
+.container {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
