@@ -27,7 +27,7 @@ export default defineComponent({
         x: 0,
         y: 0,
         width: 2,
-        height: 2,
+        height: 3,
         component: Chart,
       },
       {

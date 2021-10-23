@@ -50,18 +50,24 @@ $--colors: (
 
 .el-card {
   --el-card-background-color: #073642;
-  --el-card-border-color: #073d4b
+  --el-card-border-color: #073d4b;
+  --el-card-padding: 10px;
+}
+
+.el-card__body {
+  height: 100%;
+  padding-top: 0px;
   --el-card-padding: 10px;
 }
 
 .el-menu {
-  --el-menu-text-color: #93A1A1;
+  --el-menu-text-color: #93a1a1;
   --el-menu-border-color: #073d4b;
   --el-menu-item-font-size: 1.2em;
   --el-menu-active-color: white;
-  --el-menu-hover-background-color: #CB4B16;
+  --el-menu-hover-background-color: #cb4b16;
   //--el-menu-item-hover-fill: #268BD2;
-  --el-menu-hover-text-color: #B58900 !important;
+  --el-menu-hover-text-color: #b58900 !important;
   //--el-menu-background-color: #e6007a;
   background: #073642;
   border: none;
