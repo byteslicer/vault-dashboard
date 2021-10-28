@@ -45,6 +45,7 @@ $--colors: (
 
 :root {
   --el-border-color-light: #303030;
+  --el-text-color-primary: #93A1A1;
   font-family: 'Work Sans';
 }
 
@@ -56,7 +57,7 @@ $--colors: (
 
 .el-card__body {
   height: 100%;
-  padding-top: 0px;
+  box-sizing:border-box; 
   --el-card-padding: 10px;
 }
 

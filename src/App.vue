@@ -11,6 +11,7 @@ import Grid, { Widget } from './components/Grid.vue';
 import Chart from './components/Chart.vue';
 import Nav from './components/Nav.vue';
 import Test from './components/Test.vue';
+import Stat from './components/Stat.vue';
 import { useVaultStore } from './stores/vault';
 
 export default defineComponent({
@@ -37,6 +38,14 @@ export default defineComponent({
         width: 4,
         height: 2,
         component: Test,
+      },
+      {
+        id: 'c',
+        x: 0,
+        y: 3,
+        width: 2,
+        height: 2,
+        component: Stat,
       },
     ];
 

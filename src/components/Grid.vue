@@ -75,7 +75,7 @@ export default defineComponent({
         { class: 'grid-container' },
         Object.values(styledWidgets.value).map(widget =>
           h('div', { class: 'grid-item', style: widget.style as any }, [
-            h(ElCard, { style: 'height: 100%' }, h(widget.component)),
+            h(ElCard, { style: 'height: 100%;' }, h(widget.component)),
           ])
         )
       );

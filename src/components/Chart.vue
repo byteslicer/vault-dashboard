@@ -9,7 +9,7 @@
       @mouseout="setToolsVisible(false)"
     ></apexchart>
   </div> -->
-  <vue3-chart-js id="test" type="line" :data="data"></vue3-chart-js>
+  <vue3-chart-js id="test" ref="chartRef" type="line" :data="data" :options="options"></vue3-chart-js>
 </template>
 
 <script lang="ts">
@@ -22,35 +22,50 @@ export default defineComponent({
     Vue3ChartJs,
   },
   setup() {
-    const data = computed(() => ({
-      datasets: [
-        {
-          label: 'My First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1,
-        },
-      ],
-    }));
+    const chartRef = ref(null);
+    const options = {
+      maintainAspectRatio: false,
+      scales: {
+          x: {
+              type: 'timeseries',
+          },
+          y: {
+            type: 'linear',
+          } 
+      }
+    }
+    const series: Ref<any> = ref([]);
+    const data = {
+      datasets: [],
+    };
 
-    const series: Ref<Record<string, any>> = ref([]);
+
+
+    
 
     axios
       .get(
         'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1&interval=hourly'
       )
       .then(res => {
-        series.value = [
+        series.value = res.data.prices.map(([x, y]) => ({ x, y }));
+        data.datasets = [
           {
-            name: 'BTC/USD',
-            data: res.data.prices,
+            label: 'BTC/USD',
+            data: series.value,
+            fill: false,
+            borderColor: "#00D8FF",
+            tension: 0.5,
+            backgroundColor: "blue",
           },
         ];
+        chartRef.value && chartRef.value.update()
       });
 
     return {
+      chartRef,
       data,
+      options
     };
   },
 });
