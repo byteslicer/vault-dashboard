@@ -51,7 +51,7 @@ export default defineComponent({
 
     axios
       .get(
-        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1&interval=hourly'
+        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=hourly'
       )
       .then(res => {
         series.value = res.data.prices.map(([x, y]: any) => ({ x, y }));

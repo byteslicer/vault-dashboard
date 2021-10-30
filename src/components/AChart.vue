@@ -1,30 +1,28 @@
 <template>
-  <!-- <div style="height: 100%">
+  <WidgetContainer>
     <apexchart
       width="100%"
+      height="100%"
       type="line"
       :options="options"
       :series="series"
-      @mouseover="setToolsVisible(true)"
-      @mouseout="setToolsVisible(false)"
     ></apexchart>
-  </div> -->
-  <vue3-chart-js id="test" type="line" :data="data"></vue3-chart-js>
+  </WidgetContainer>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, Ref, computed, toRaw } from 'vue';
+import { ref, defineComponent, Ref, computed } from 'vue';
 import axios from 'axios';
+import WidgetContainer from '../components/WidgetContainer.vue';
 
 export default defineComponent({
+  components: { WidgetContainer },
   setup() {
     const toolBarVisible = ref(false);
     const options = computed(() => ({
       chart: {
         id: 'vuechart-example',
-        background: 'var(--el-card-background-color)',
-        foreColor: '#93A1A1',
-        height: '100%',
+        fontFamily: 'Work Sans',
         toolbar: {
           show: toolBarVisible.value,
           tools: {
@@ -41,23 +39,14 @@ export default defineComponent({
       xaxis: {
         type: 'datetime',
       },
+      title: {
+        text: 'BTC/USD',
+        align: 'center',
+      },
       yaxis: {
         labels: {
           formatter: (value: number) => value.toFixed(),
         },
-      },
-      colors: [
-        '#268BD2', // Blue
-        '#D33682', // Magenta
-        '#B58900', // Orange
-        '#CB4B16', // Red
-        '#DC322F', // Yellow
-        '#6C71C4', // Violet
-        '#2AA198', // Cyan
-        '#859900', // Green
-      ],
-      theme: {
-        mode: 'dark',
       },
       stroke: {
         show: true,
@@ -69,7 +58,6 @@ export default defineComponent({
       },
       grid: {
         show: true,
-        borderColor: '#586E75',
         strokeDashArray: 2,
       },
     }));
@@ -78,7 +66,7 @@ export default defineComponent({
 
     axios
       .get(
-        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1&interval=hourly'
+        'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=hourly'
       )
       .then(res => {
         series.value = [
@@ -89,14 +77,9 @@ export default defineComponent({
         ];
       });
 
-    const setToolsVisible = (visible: boolean) => {
-      toolBarVisible.value = visible;
-    };
-
     return {
       series,
       options,
-      setToolsVisible,
     };
   },
 });

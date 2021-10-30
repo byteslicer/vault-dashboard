@@ -6,8 +6,6 @@
       type="line"
       :options="options"
       :series="series"
-      @mouseover="setToolsVisible(true)"
-      @mouseout="setToolsVisible(false)"
     ></apexchart>
   </WidgetContainer>
 </template>
@@ -30,10 +28,10 @@ export default defineComponent({
     title: String,
   },
   setup(props) {
-    const toolBarVisible = ref(false);
     const options = computed(() => ({
       chart: {
-        id: 'vuechart-example',
+        id: 'graphql-chart',
+        fontFamily: 'Work Sans',
         toolbar: {
           show: true,
           tools: {
@@ -91,14 +89,9 @@ export default defineComponent({
       ];
     });
 
-    const setToolsVisible = (visible: boolean) => {
-      toolBarVisible.value = visible;
-    };
-
     return {
       series,
       options,
-      setToolsVisible,
     };
   },
 });
