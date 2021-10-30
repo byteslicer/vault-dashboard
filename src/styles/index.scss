@@ -3,11 +3,11 @@
 @import 'flex';
 
 :root {
-  --main-background-color: #002b36;
+  // --main-background-color: #002b36;
 }
 
 #app {
-  background-color: var(--main-background-color);
+  // background-color: var(--main-background-color);
 }
 
 html,
@@ -16,7 +16,7 @@ body {
   font-family: 'Work Sans';
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
 }
 h1,
 p {
@@ -24,13 +24,52 @@ p {
 }
 
 .nav {
+  padding: 10px;
   display: flex;
+  justify-content: flex-end;
 }
+
+#app {
+  height: 100%;
+}
+
+.el-card {
+  // --el-card-background-color: #073642;
+  // --el-card-border-color: #073d4b;
+  --el-card-padding: 10px;
+  height: 100%;
+  box-sizing:border-box; 
+}
+
+.el-card__header {
+  box-sizing:border-box; 
+}
+
+.el-card__body {
+  height: 100%;
+  box-sizing:border-box; 
+  --el-card-padding: 10px;
+}
+
+
 
 .container {
   height: 100%;
 }
 
-#app {
+.grid-container {
   height: 100%;
+  //padding-top: 20px;
+  padding: 0px 10px 10px 10px;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+}
+
+.grid-item {
+  grid-column-start: auto;
+  grid-column-end: auto;
+  grid-row-start: auto;
+  grid-row-end: auto;
 }

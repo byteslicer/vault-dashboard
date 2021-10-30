@@ -1,11 +1,13 @@
-
+import { ref, Ref, watch } from "vue";
+import { nanoid } from 'nanoid'
+import { del } from "@vueuse/core/node_modules/vue-demi";
 
 let api: Promise<KrakenApi> | null = null;
 
 class KrakenApi {
     socket: WebSocket;
     channelMap: Record<string, number>;
-    channelListener: Record<number, [(message: any) => void]>;
+    channelListener: Record<number, Record<string, (message: any) => void>>;
     reqCnt: number;
     reqPromiseMap: Record<number, any>;
 
@@ -43,10 +45,10 @@ class KrakenApi {
         }
         if (Array.isArray(message)) {
             let handlers = this.channelListener[message[0]] || [];
-            handlers.forEach(handler => handler(message));
+            Object.values(handlers).forEach(handler => handler(message));
         }
 
-        console.log('Message from server ', message);
+        //console.log('Message from server ', message);
     }
 
     private request(payload: any): Promise<any> {
@@ -62,13 +64,21 @@ class KrakenApi {
         })
     }
 
-    private addChannelListener(channelId: number, listener: (message: any) => void) {
-        let listenerArray = this.channelListener[channelId] || [];
-        listenerArray.push(listener);
-        this.channelListener[channelId] = listenerArray;
+    private addChannelListener(channelId: number, listener: (message: any) => void): string {
+        const listenerId = nanoid();
+        let listeners = this.channelListener[channelId] || {};
+        listeners[listenerId] = listener;
+        this.channelListener[channelId] = listeners;
+
+        return listenerId;
     }
 
-    async subscribe(symbol: string, listener: (message: any) => void) {
+    private removeChannelListener(channelId: number, listenerId: string) {
+        let listeners = this.channelListener[channelId];
+        delete listeners[listenerId];
+    }
+
+    async subscribe(symbol: string, listener: (message: any) => void): Promise<() => void> {
         let response = await this.request({
             event:"subscribe", 
             subscription: {"name":"ticker"},
@@ -76,8 +86,13 @@ class KrakenApi {
         });
 
         this.channelMap[symbol] = response.channelID;
-        this.addChannelListener(response.channelID, listener);
+        let listenerId = this.addChannelListener(response.channelID, listener);
+
+        return () => {
+            this.removeChannelListener(response.channelID, listenerId);
+        }
     }
+
 }
 
 export function connect() {
@@ -85,4 +100,25 @@ export function connect() {
         api = KrakenApi.connect();
     }
     return api;
+}
+
+
+export function useStreaming(symbol: Ref<string>) {
+    const close: Ref<number | null> = ref(null);
+    let unsubscribe: (() => void) | null = null;
+    connect().then((api) => {
+        watch(symbol, () => {
+            if (unsubscribe) {
+                unsubscribe();
+            }
+            api.subscribe(symbol.value, ([channelId, payload]) => {
+                close.value = Number(payload.c[0]);
+            }).then(x => unsubscribe = x)
+        }, { immediate: true })
+     
+    })
+
+    return {
+        close
+    }
 }

@@ -1,17 +1,19 @@
 <template>
-    <ElCard>
-        <slot></slot>
-    </ElCard>
+    <ElCard shadow="hover">
+        <template v-for="(_, name) in $slots" v-slot:[name]="slotData"><slot :name="name" v-bind="slotData" /></template>
+    </ELCard>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, h } from 'vue';
 import { ElCard } from 'element-plus'
 
-export default {
+export default defineComponent({
     components: { ElCard },
-    props: {
+    setup(props, {slots}) {
+        
     }
-}
+})
 
 </script>
 

@@ -1,33 +1,33 @@
-$--colors: (
-  'white': #292929,
-  'black': #fff,
-  'primary': (
-    'base': #e6007a,
-  ),
-  'success': (
-    'base': #21ba45,
-  ),
-  'warning': (
-    'base': #f2711c,
-  ),
-  'danger': (
-    'base': #db2828,
-  ),
-  'error': (
-    'base': #db2828,
-  ),
-  'info': (
-    'base': #42b8dd,
-  ),
-  'border-color-light': #202020,
-);
+// $--colors: (
+//   'white': #292929,
+//   'black': #fff,
+//   'primary': (
+//     'base': #e6007a,
+//   ),
+//   'success': (
+//     'base': #21ba45,
+//   ),
+//   'warning': (
+//     'base': #f2711c,
+//   ),
+//   'danger': (
+//     'base': #db2828,
+//   ),
+//   'error': (
+//     'base': #db2828,
+//   ),
+//   'info': (
+//     'base': #42b8dd,
+//   ),
+//   'border-color-light': #202020,
+// );
 
 // You should use them in scss, because we calculate it by sass.
 // comment next lines to use default color
 @forward "element-plus/theme-chalk/src/common/var.scss" with
   (
     // do not use same name, it will override.
-    $colors: $--colors,
+    // $colors: $--colors,
     $button-padding-horizontal: ("default": 50px)
   );
 
@@ -44,14 +44,14 @@ $--colors: (
 @import '@fontsource/work-sans/300-italic';
 
 :root {
-  --el-border-color-light: #303030;
-  --el-text-color-primary: #93A1A1;
+  // --el-border-color-light: #303030;
+  // --el-text-color-primary: #93A1A1;
   font-family: 'Work Sans';
 }
 
 .el-card {
-  --el-card-background-color: #073642;
-  --el-card-border-color: #073d4b;
+  // --el-card-background-color: #073642;
+  // --el-card-border-color: #073d4b;
   --el-card-padding: 10px;
 }
 
@@ -61,15 +61,17 @@ $--colors: (
   --el-card-padding: 10px;
 }
 
-.el-menu {
-  --el-menu-text-color: #93a1a1;
-  --el-menu-border-color: #073d4b;
-  --el-menu-item-font-size: 1.2em;
-  --el-menu-active-color: white;
-  --el-menu-hover-background-color: #cb4b16;
-  //--el-menu-item-hover-fill: #268BD2;
-  --el-menu-hover-text-color: #b58900 !important;
-  //--el-menu-background-color: #e6007a;
-  background: #073642;
-  border: none;
-}
+// .el-menu {
+//   --el-menu-text-color: #93a1a1;
+//   --el-menu-border-color: #073d4b;
+//   --el-menu-item-font-size: 1.2em;
+//   --el-menu-active-color: white;
+//   --el-menu-hover-background-color: #cb4b16;
+//   //--el-menu-item-hover-fill: #268BD2;
+//   --el-menu-hover-text-color: #b58900 !important;
+//   //--el-menu-background-color: #e6007a;
+//   background: #073642;
+//   border: none;
+// }
+
+

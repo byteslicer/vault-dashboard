@@ -1,60 +1,97 @@
 <template>
   <div class="d-flex flex-column container">
-    <Nav class="nav" />
-    <Grid :widgets="widgets" class="flex-grow" />
+    <div class="nav">
+      <el-select v-model="vault.selectedAccount" placeholder="Select">
+        <el-option
+          v-for="acc in accounts"
+          :key="acc.address"
+          :label="acc.meta.name"
+          :value="acc.address"
+        >
+        </el-option>
+      </el-select>
+      <Settings />
+    </div>
+    <Grid :widgets="widgets" />
+  <!--  -->
   </div>
+
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, ref, computed, ComputedRef } from 'vue';
 import Grid, { Widget } from './components/Grid.vue';
-import Chart from './components/Chart.vue';
-import Nav from './components/Nav.vue';
-import Test from './components/Test.vue';
-import Stat from './components/Stat.vue';
 import { useVaultStore } from './stores/vault';
+import { useConfigStore } from './stores/config';
+import { getAccounts } from './api/polkadot';
+import { asyncComputed } from '@vueuse/core';
+import { widgetMap } from './widgets';
+import Settings from './components/Settings.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     Grid,
-    Nav,
+    Settings
   },
   setup() {
+    const selectedAccount = ref(null);
     const vault = useVaultStore();
-    const widgets: Widget[] = [
-      {
-        id: 'a',
-        x: 0,
-        y: 0,
-        width: 2,
-        height: 3,
-        component: Chart,
-      },
-      {
-        id: 'b',
-        x: 2,
-        y: 0,
-        width: 4,
-        height: 2,
-        component: Test,
-      },
-      {
-        id: 'c',
-        x: 0,
-        y: 3,
-        width: 2,
-        height: 2,
-        component: Stat,
-      },
-    ];
+    const config = useConfigStore();
+
+    const accounts = asyncComputed(async () => {
+      return await getAccounts();
+    }, null)
+
+    const widgets: ComputedRef<Widget[]> = computed(() => config.widgets.filter(w => w.component in widgetMap).map(w => ({
+      ...w,
+      component: widgetMap[w.component]
+    })))
+
+    // const widgets: Widget[] = [
+    //   {
+    //     id: 'chart',
+    //     x: 0,
+    //     y: 0,
+    //     width: 2,
+    //     height: 2,
+    //     component: Chart,
+    //   },
+    //   {
+    //     id: 'locked',
+    //     x: 2,
+    //     y: 0,
+    //     width: 2,
+    //     height: 1,
+    //     component: LockedTokens,
+    //   },
+    //   {
+    //     id: 'rank',
+    //     x: 4,
+    //     y: 0,
+    //     width: 1,
+    //     height: 1,
+    //     component: Rank,
+    //   },
+    //   {
+    //     id: 'btcprice',
+    //     x: 0,
+    //     y: 2,
+    //     width: 2,
+    //     height: 1,
+    //     component: BitcoinPrice,
+    //   },
+    // ];
 
     onMounted(() => {
       vault.fetchVaults();
     });
 
     return {
+      vault,
       widgets,
+      accounts,
+      selectedAccount
     };
   },
 });

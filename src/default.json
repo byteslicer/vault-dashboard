@@ -1,0 +1,63 @@
+{
+  "account": "5FYqnzxziQN6zwaqzKtgdCJYGT2DsSqrV7Gkg28qEe1gZu5U",
+  "widgets": [
+    {
+      "id": "chart",
+      "x": 0,
+      "y": 0,
+      "width": 2,
+      "height": 2,
+      "component": "Chart"
+    },
+    {
+      "id": "locked",
+      "x": 5,
+      "y": 0,
+      "width": 2,
+      "height": 1,
+      "component": "LockedTokens"
+    },
+    {
+      "id": "rank",
+      "x": 7,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "component": "Rank"
+    },
+    {
+      "id": "btcprice",
+      "x": 0,
+      "y": 2,
+      "width": 2,
+      "height": 1,
+      "component": "StreamingPrice",
+      "props": {
+        "symbol": "BTC/USD"
+      }
+    },
+    {
+      "id": "dotprice",
+      "x": 0,
+      "y": 3,
+      "width": 2,
+      "height": 1,
+      "component": "StreamingPrice",
+      "props": {
+        "symbol": "DOT/USD"
+      }
+    },
+    {
+      "id": "test1",
+      "x": 2,
+      "y": 0,
+      "width": 3,
+      "height": 3,
+      "component": "GraphQLChart",
+      "props": {
+        "dataPath": "data.oracleExchangeRates.nodes",
+        "query": "query { oracleExchangeRates { nodes { timestamp value }}}"
+      }
+    }
+  ]
+}

@@ -1,10 +1,12 @@
 <template>
-  <apexchart
-    width="100%"
-    type="bar"
-    :options="options"
-    :series="series"
-  ></apexchart>
+  <WidgetContainer>
+    <apexchart
+      width="100%"
+      type="bar"
+      :options="options"
+      :series="series"
+    ></apexchart>
+  </WidgetContainer>
 </template>
 
 <script lang="ts">
@@ -13,9 +15,10 @@ import { BitcoinUnit } from "@interlay/monetary-js";
 
 import { computed, defineComponent, ref, Ref } from 'vue';
 import { useVaultStore } from '../stores/vault';
-
+import WidgetContainer from './WidgetContainer.vue'
 
 export default defineComponent({
+  components: { WidgetContainer },
   setup() {
     const vault = useVaultStore();
     const series = computed(() => {

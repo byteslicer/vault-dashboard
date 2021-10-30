@@ -9,17 +9,21 @@
       @mouseout="setToolsVisible(false)"
     ></apexchart>
   </div> -->
-  <vue3-chart-js id="test" ref="chartRef" type="line" :data="data" :options="options"></vue3-chart-js>
+  <WidgetContainer>
+    <vue3-chart-js id="test" ref="chartRef" type="line" :data="data" :options="options"></vue3-chart-js>
+  </WidgetContainer>
 </template>
 
 <script lang="ts">
 import Vue3ChartJs from '@j-t-mcc/vue3-chartjs';
 import { ref, defineComponent, Ref, computed, toRaw } from 'vue';
 import axios from 'axios';
+import WidgetContainer from './WidgetContainer.vue'
 
 export default defineComponent({
   components: {
     Vue3ChartJs,
+    WidgetContainer
   },
   setup() {
     const chartRef = ref(null);
@@ -38,10 +42,6 @@ export default defineComponent({
     const data = {
       datasets: [],
     };
-
-
-
-    
 
     axios
       .get(

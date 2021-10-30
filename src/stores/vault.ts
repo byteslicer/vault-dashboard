@@ -2,15 +2,41 @@ import { defineStore } from 'pinia';
 import { connect } from '../api/interbtc';
 import type { VaultExt } from '@interlay/interbtc-api';
 import { BitcoinUnit } from "@interlay/monetary-js";
+import { useStorage } from '@vueuse/core'
 
 export const useVaultStore = defineStore('vault', {
   state: () => {
     return {
+      selectedAccount: useStorage('selectedAccount', null),
       entries: {},
     };
   },
   // could also be defined as
   // state: () => ({ count: 0 })
+  getters: {
+    rank(state) {
+      if (!state.entries) {
+        return null;
+      }
+
+      let entries: any[] = Object.values(state.entries as Record<string, VaultExt<BitcoinUnit>>).map(x => ({
+        ...x,
+        id: x.id.toHuman(),
+        issuedTokens: x.issuedTokens.toBig().toNumber(),
+        issuedTokensHuman: x.issuedTokens.toHuman()
+      }))
+
+      entries.sort((a, b) => b.issuedTokens - a.issuedTokens);
+
+      const ownedVaultIndex = entries.findIndex(x => x.id === state.selectedAccount)
+
+      return {
+        vault: ownedVaultIndex >= 0 ? entries[ownedVaultIndex] : null,
+        rank: ownedVaultIndex >= 0 ? ownedVaultIndex + 1 : null, 
+        entries 
+      };
+    }
+  },
   actions: {
     async fetchVaults() {
       const api = await connect();

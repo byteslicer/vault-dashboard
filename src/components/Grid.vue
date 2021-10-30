@@ -20,6 +20,7 @@ export interface Widget {
   width: number;
   height: number;
   component: DefineComponent<{}, {}, any>;
+  props?: Record<string, any>;
 }
 
 export interface ComputedWidget extends Widget {
@@ -74,9 +75,7 @@ export default defineComponent({
         'div',
         { class: 'grid-container' },
         Object.values(styledWidgets.value).map(widget =>
-          h('div', { class: 'grid-item', style: widget.style as any }, [
-            h(ElCard, { style: 'height: 100%;' }, h(widget.component)),
-          ])
+          h('div', { class: 'grid-item', style: widget.style as any }, [h(widget.component, widget.props)])
         )
       );
   },
@@ -84,19 +83,4 @@ export default defineComponent({
 </script>
 
 <style>
-.grid-container {
-  padding-top: 20px;
-  padding: 12px 10px 10px 10px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-}
-
-.grid-item {
-  grid-column-start: auto;
-  grid-column-end: auto;
-  grid-row-start: auto;
-  grid-row-end: auto;
-}
 </style>
