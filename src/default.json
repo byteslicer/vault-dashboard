@@ -18,6 +18,14 @@
       "component": "LockedTokens"
     },
     {
+      "id": "collateral",
+      "x": 0,
+      "y": 4,
+      "width": 3,
+      "height": 1,
+      "component": "BackingCollateral"
+    },
+    {
       "id": "rank",
       "x": 3,
       "y": 3,
