@@ -2,9 +2,9 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import VueApexCharts from 'vue3-apexcharts';
 import { Buffer } from 'buffer';
+import 'element-plus/dist/index.css';
 import './styles/index.scss';
 import { createPinia } from 'pinia';
-import { Chart } from 'chart.js';
 import 'chartjs-adapter-luxon';
 
 // Chart.defaults.color = '#93A1A1';

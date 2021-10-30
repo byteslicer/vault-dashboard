@@ -40,8 +40,8 @@
 //   $fontDir: '~@fontsource/work-sans/files'
 // );
 
-@import '@fontsource/work-sans/index';
-@import '@fontsource/work-sans/300-italic';
+// @import '@fontsource/work-sans/index';
+// @import '@fontsource/work-sans/300-italic';
 
 :root {
   // --el-border-color-light: #303030;
@@ -57,7 +57,7 @@
 
 .el-card__body {
   height: 100%;
-  box-sizing:border-box; 
+  box-sizing: border-box;
   --el-card-padding: 10px;
 }
 
@@ -73,5 +73,3 @@
 //   background: #073642;
 //   border: none;
 // }
-
-

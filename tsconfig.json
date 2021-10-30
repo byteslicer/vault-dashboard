@@ -1,18 +1,13 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "useDefineForClassFields": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    // this enables stricter inference for data properties on `this`
     "strict": true,
     "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
-    "types": ["element-plus/global"],
-    "skipLibCheck": true,
-    "typeRoots": ["./node_modules/@types"]
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["element-plus/global"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
