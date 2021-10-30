@@ -77,7 +77,7 @@ export default defineComponent({
 
     const getTimeseriesFromQueryResult = (data: any, path: string) => {
       const timeseries = JSONPath({ path, json: data, wrap: false });
-      return timeseries.map(entry => [entry.timestamp, entry.value]);
+      return timeseries.map((entry: any) => [entry.timestamp, entry.value]);
     };
 
     axios.post(props.url, { query: props.query }).then(res => {

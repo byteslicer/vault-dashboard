@@ -3,13 +3,19 @@ import { connect } from '../api/interbtc';
 import type { VaultExt } from '@interlay/interbtc-api';
 import { BitcoinUnit } from "@interlay/monetary-js";
 import { useStorage } from '@vueuse/core'
+import { Ref } from 'vue';
+
+export type VaultState = {
+  selectedAccount: Ref<string>;
+  entries: Record<string, VaultExt<BitcoinUnit>>;
+};
 
 export const useVaultStore = defineStore('vault', {
   state: () => {
     return {
       selectedAccount: useStorage('selectedAccount', null),
       entries: {},
-    };
+    } as VaultState;
   },
   // could also be defined as
   // state: () => ({ count: 0 })

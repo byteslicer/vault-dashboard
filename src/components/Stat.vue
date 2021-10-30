@@ -1,22 +1,24 @@
 <template>
-    <WidgetContainer>
-      <div class="d-flex flex-column container">
-        <div v-if="title" class="d-flex flex-row flex-align-center">{{ title }}</div>
-        <div v-if="value" class="flex-grow stat">{{ value }}</div>
+  <WidgetContainer>
+    <div class="d-flex flex-column container">
+      <div v-if="title" class="d-flex flex-row flex-align-center">
+        {{ title }}
       </div>
-    </WidgetContainer>
+      <div v-if="value" class="flex-grow stat">{{ value }}</div>
+    </div>
+  </WidgetContainer>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import WidgetContainer from './WidgetContainer.vue'
+import { defineComponent, PropType } from 'vue';
+import WidgetContainer from './WidgetContainer.vue';
 
 export default defineComponent({
   components: { WidgetContainer },
   props: {
-    value: String,
-    title: String
-  }
+    value: String as PropType<string | null>,
+    title: String as PropType<string | null>,
+  },
 });
 </script>
 

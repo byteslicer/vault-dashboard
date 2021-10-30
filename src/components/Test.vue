@@ -24,7 +24,7 @@ export default defineComponent({
     const series = computed(() => {
       let data: any  = [];
       if (vault.entries) {
-        data = Object.values(vault.entries as VaultExt<BitcoinUnit>[]).filter(
+        data = Object.values(vault.entries).filter(
           (x) => x.status === 0
         ).map(x => ({
           x: x.id.toHuman(),

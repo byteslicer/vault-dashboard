@@ -1,23 +1,23 @@
 <template>
-    <Stat :value="close && `${close} ${currency}`" :title="symbol"/>
+  <Stat :value="close ? `${close} ${currency}` : null" :title="symbol" />
 </template>
 
 <script lang="ts">
 import { ref, defineComponent, computed, toRefs } from 'vue';
-import { connect, useStreaming } from '../api/kraken'
-import Stat from '../components/Stat.vue'
+import { connect, useStreaming } from '../api/kraken';
+import Stat from '../components/Stat.vue';
 
 export default defineComponent({
   components: { Stat },
   props: {
     symbol: {
       type: String,
-      default: 'BTC/USD'
-    }
-  }, 
+      default: 'BTC/USD',
+    },
+  },
   setup(props) {
     const { symbol } = toRefs(props);
-    const currency = computed(() => symbol.value.split('/')[1].toUpperCase() )
+    const currency = computed(() => symbol.value.split('/')[1].toUpperCase());
     const price = ref(null);
 
     const { close } = useStreaming(symbol);
@@ -29,10 +29,9 @@ export default defineComponent({
     //     price.value = Number(payload.c[0]);
     //   })
     // })
-    return { close, currency }
+    return { close, currency };
   },
 });
 </script>
 
-<style>
-</style>
+<style></style>

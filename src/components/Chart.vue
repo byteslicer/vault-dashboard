@@ -10,7 +10,13 @@
     ></apexchart>
   </div> -->
   <WidgetContainer>
-    <vue3-chart-js id="test" ref="chartRef" type="line" :data="data" :options="options"></vue3-chart-js>
+    <vue3-chart-js
+      id="test"
+      ref="chartRef"
+      type="line"
+      :data="data"
+      :options="options"
+    ></vue3-chart-js>
   </WidgetContainer>
 </template>
 
@@ -18,28 +24,28 @@
 import Vue3ChartJs from '@j-t-mcc/vue3-chartjs';
 import { ref, defineComponent, Ref, computed, toRaw } from 'vue';
 import axios from 'axios';
-import WidgetContainer from './WidgetContainer.vue'
+import WidgetContainer from './WidgetContainer.vue';
 
 export default defineComponent({
   components: {
     Vue3ChartJs,
-    WidgetContainer
+    WidgetContainer,
   },
   setup() {
-    const chartRef = ref(null);
+    const chartRef: any = ref(null);
     const options = {
       maintainAspectRatio: false,
       scales: {
-          x: {
-              type: 'timeseries',
-          },
-          y: {
-            type: 'linear',
-          } 
-      }
-    }
+        x: {
+          type: 'timeseries',
+        },
+        y: {
+          type: 'linear',
+        },
+      },
+    };
     const series: Ref<any> = ref([]);
-    const data = {
+    const data: any = {
       datasets: [],
     };
 
@@ -48,24 +54,24 @@ export default defineComponent({
         'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1&interval=hourly'
       )
       .then(res => {
-        series.value = res.data.prices.map(([x, y]) => ({ x, y }));
+        series.value = res.data.prices.map(([x, y]: any) => ({ x, y }));
         data.datasets = [
           {
             label: 'BTC/USD',
             data: series.value,
             fill: false,
-            borderColor: "#00D8FF",
+            borderColor: '#00D8FF',
             tension: 0.5,
-            backgroundColor: "blue",
+            backgroundColor: 'blue',
           },
         ];
-        chartRef.value && chartRef.value.update()
+        chartRef.value && chartRef.value.update();
       });
 
     return {
       chartRef,
       data,
-      options
+      options,
     };
   },
 });

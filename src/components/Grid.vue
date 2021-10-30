@@ -19,7 +19,7 @@ export interface Widget {
   y: number;
   width: number;
   height: number;
-  component: DefineComponent<{}, {}, any>;
+  component: DefineComponent<any, any, any>;
   props?: Record<string, any>;
 }
 
@@ -75,12 +75,13 @@ export default defineComponent({
         'div',
         { class: 'grid-container' },
         Object.values(styledWidgets.value).map(widget =>
-          h('div', { class: 'grid-item', style: widget.style as any }, [h(widget.component, widget.props)])
+          h('div', { class: 'grid-item', style: widget.style as any }, [
+            h(widget.component, widget.props),
+          ])
         )
       );
   },
 });
 </script>
 
-<style>
-</style>
+<style></style>
