@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column container">
     <div class="nav">
-      <div class="logo">vueltD</div>
+      <div class="logo">myVault</div>
       <el-select v-model="vault.selectedAccount" placeholder="Select">
         <el-option
           v-for="acc in accounts"
