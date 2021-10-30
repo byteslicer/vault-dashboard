@@ -55,6 +55,7 @@
       "height": 3,
       "component": "GraphQLChart",
       "props": {
+        "title": "Oracle price history",
         "dataPath": "data.oracleExchangeRates.nodes",
         "query": "query { oracleExchangeRates { nodes { timestamp value }}}"
       }
