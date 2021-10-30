@@ -15,6 +15,7 @@ import { ref, defineComponent, Ref, computed } from 'vue';
 import WidgetContainer from '../components/WidgetContainer.vue';
 import axios from 'axios';
 import { JSONPath } from 'jsonpath-plus';
+import { DateTime, Duration } from 'luxon';
 
 export default defineComponent({
   components: { WidgetContainer },
@@ -78,16 +79,25 @@ export default defineComponent({
       return timeseries.map((entry: any) => [entry.timestamp, entry.value]);
     };
 
-    axios.post(props.url, { query: props.query }).then(res => {
-      const timeseries = getTimeseriesFromQueryResult(res.data, props.dataPath);
+    const fromDate = DateTime.now()
+      .minus(Duration.fromObject({ days: 14 }))
+      .toISO();
 
-      series.value = [
-        {
-          name: 'Oracle Price',
-          data: timeseries,
-        },
-      ];
-    });
+    axios
+      .post(props.url, { query: props.query, variables: { fromDate } })
+      .then(res => {
+        const timeseries = getTimeseriesFromQueryResult(
+          res.data,
+          props.dataPath
+        );
+
+        series.value = [
+          {
+            name: 'Oracle Price',
+            data: timeseries,
+          },
+        ];
+      });
 
     return {
       series,

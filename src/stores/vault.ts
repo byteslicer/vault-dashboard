@@ -29,7 +29,8 @@ export const useVaultStore = defineStore('vault', {
         ...x,
         id: x.id.toHuman(),
         issuedTokens: x.issuedTokens.toBig().toNumber(),
-        issuedTokensHuman: x.issuedTokens.toHuman()
+        issuedTokensHuman: x.issuedTokens.toHuman(),
+        backingCollateralHuman: x.backingCollateral.toHuman()
       }))
 
       entries.sort((a, b) => b.issuedTokens - a.issuedTokens);

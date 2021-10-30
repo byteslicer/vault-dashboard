@@ -18,13 +18,12 @@ import WidgetContainer from '../components/WidgetContainer.vue';
 export default defineComponent({
   components: { WidgetContainer },
   setup() {
-    const toolBarVisible = ref(false);
     const options = computed(() => ({
       chart: {
         id: 'vuechart-example',
         fontFamily: 'Work Sans',
         toolbar: {
-          show: toolBarVisible.value,
+          show: true,
           tools: {
             download: false,
             selection: true,
