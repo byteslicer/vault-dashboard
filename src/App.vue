@@ -19,14 +19,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  computed,
-  ComputedRef,
-  Ref,
-} from 'vue';
+import { defineComponent, onMounted, computed, ComputedRef } from 'vue';
 import Grid, { Widget } from './components/Grid.vue';
 import { useVaultStore } from './stores/vault';
 import { useConfigStore } from './stores/config';
@@ -42,7 +35,6 @@ export default defineComponent({
     Settings,
   },
   setup() {
-    const selectedAccount: Ref<string | null> = ref(null);
     const vault = useVaultStore();
     const config = useConfigStore();
 
@@ -52,8 +44,8 @@ export default defineComponent({
 
     const widgets: ComputedRef<Widget[]> = computed(() =>
       config.widgets
-        .filter(w => w.component in widgetMap)
-        .map(w => ({
+        .filter((w: any) => w.component in widgetMap)
+        .map((w: any) => ({
           ...w,
           component: widgetMap[w.component],
         }))

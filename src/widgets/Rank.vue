@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { storeToRefs } from 'pinia';
-import { ref, defineComponent, computed, ComputedRef } from 'vue';
+import { defineComponent, computed, ComputedRef } from 'vue';
 import Stat from '../components/Stat.vue';
 import { useVaultStore } from '../stores/vault';
 

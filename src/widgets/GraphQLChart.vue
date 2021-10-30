@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, Ref, computed, toRaw, onMounted } from 'vue';
+import { ref, defineComponent, Ref, computed } from 'vue';
 import WidgetContainer from '../components/WidgetContainer.vue';
 import axios from 'axios';
 import { JSONPath } from 'jsonpath-plus';
