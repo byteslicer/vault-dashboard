@@ -1,10 +1,8 @@
 <script lang="ts">
-import { ElCard } from 'element-plus';
 import {
   defineComponent,
   computed,
   toRefs,
-  ref,
   Ref,
   ComputedRef,
   PropType,

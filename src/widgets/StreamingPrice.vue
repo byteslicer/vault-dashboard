@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed, toRefs } from 'vue';
-import { connect, useStreaming } from '../api/kraken';
+import { defineComponent, computed, toRefs } from 'vue';
+import { useStreaming } from '../api/kraken';
 import Stat from '../components/Stat.vue';
 
 export default defineComponent({
@@ -18,7 +18,6 @@ export default defineComponent({
   setup(props) {
     const { symbol } = toRefs(props);
     const currency = computed(() => symbol.value.split('/')[1].toUpperCase());
-    const price = ref(null);
 
     const { close } = useStreaming(symbol);
 

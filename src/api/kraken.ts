@@ -27,7 +27,7 @@ class KrakenApi {
 
     static connect(): Promise<KrakenApi> {
         return new Promise((resolve, reject) => {
-            let socket = new WebSocket('wss://ws.kraken.com/');
+            const socket = new WebSocket('wss://ws.kraken.com/');
             socket.addEventListener('open', () => resolve(new KrakenApi(socket)));
         })
     }
@@ -40,11 +40,11 @@ class KrakenApi {
         const message = JSON.parse(event.data);
 
         if ('reqid' in message) {
-            let handler = this.reqPromiseMap[message.reqid];
+            const handler = this.reqPromiseMap[message.reqid];
             handler && handler.resolve(message);
         }
         if (Array.isArray(message)) {
-            let handlers = this.channelListener[message[0]] || [];
+            const handlers = this.channelListener[message[0]] || [];
             Object.values(handlers).forEach(handler => handler(message));
         }
 
@@ -53,9 +53,9 @@ class KrakenApi {
 
     private request(payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            let reqid = this.reqCnt++;
+            const reqid = this.reqCnt++;
 
-            let message = { 
+            const message = { 
                 ...payload,
                 reqid
             }
@@ -66,7 +66,7 @@ class KrakenApi {
 
     private addChannelListener(channelId: number, listener: (message: any) => void): string {
         const listenerId = nanoid();
-        let listeners = this.channelListener[channelId] || {};
+        const listeners = this.channelListener[channelId] || {};
         listeners[listenerId] = listener;
         this.channelListener[channelId] = listeners;
 
@@ -74,19 +74,19 @@ class KrakenApi {
     }
 
     private removeChannelListener(channelId: number, listenerId: string) {
-        let listeners = this.channelListener[channelId];
+        const listeners = this.channelListener[channelId];
         delete listeners[listenerId];
     }
 
     async subscribe(symbol: string, listener: (message: any) => void): Promise<() => void> {
-        let response = await this.request({
+        const response = await this.request({
             event:"subscribe", 
             subscription: {"name":"ticker"},
             pair:[symbol]
         });
 
         this.channelMap[symbol] = response.channelID;
-        let listenerId = this.addChannelListener(response.channelID, listener);
+        const listenerId = this.addChannelListener(response.channelID, listener);
 
         return () => {
             this.removeChannelListener(response.channelID, listenerId);

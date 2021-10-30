@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Vue3ChartJs from '@j-t-mcc/vue3-chartjs';
-import { ref, defineComponent, Ref, computed, toRaw } from 'vue';
+import { ref, defineComponent, Ref } from 'vue';
 import axios from 'axios';
 import WidgetContainer from './WidgetContainer.vue';
 

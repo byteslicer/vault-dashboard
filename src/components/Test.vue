@@ -10,30 +10,30 @@
 </template>
 
 <script lang="ts">
-import type { VaultExt } from '@interlay/interbtc-api';
-import { BitcoinUnit } from "@interlay/monetary-js";
-
-import { computed, defineComponent, ref, Ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useVaultStore } from '../stores/vault';
-import WidgetContainer from './WidgetContainer.vue'
+import WidgetContainer from './WidgetContainer.vue';
 
 export default defineComponent({
   components: { WidgetContainer },
   setup() {
     const vault = useVaultStore();
     const series = computed(() => {
-      let data: any  = [];
+      let data: any = [];
       if (vault.entries) {
-        data = Object.values(vault.entries).filter(
-          (x) => x.status === 0
-        ).map(x => ({
-          x: x.id.toHuman(),
-          y: Number(x.issuedTokens.toHuman())
-        })).sort((a, b) => b.y - a.y );
+        data = Object.values(vault.entries)
+          .filter(x => x.status === 0)
+          .map(x => ({
+            x: x.id.toHuman(),
+            y: Number(x.issuedTokens.toHuman()),
+          }))
+          .sort((a, b) => b.y - a.y);
       }
-      return [{
-        data
-      }];
+      return [
+        {
+          data,
+        },
+      ];
     });
     const options = {
       chart: {
@@ -81,7 +81,7 @@ export default defineComponent({
         },
       },
       xaxis: {
-        type: 'category'
+        type: 'category',
       },
       legend: {
         show: false,
@@ -94,7 +94,7 @@ export default defineComponent({
       title: {
         text: 'Ranking (Issued interBTC)',
         align: 'center',
-        floating: true
+        floating: true,
       },
     };
 

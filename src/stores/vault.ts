@@ -25,7 +25,7 @@ export const useVaultStore = defineStore('vault', {
         return null;
       }
 
-      let entries: any[] = Object.values(state.entries as Record<string, VaultExt<BitcoinUnit>>).map(x => ({
+      const entries: any[] = Object.values(state.entries as Record<string, VaultExt<BitcoinUnit>>).map(x => ({
         ...x,
         id: x.id.toHuman(),
         issuedTokens: x.issuedTokens.toBig().toNumber(),
