@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex flex-column container">
     <div class="nav">
+      <div class="logo">vueltD</div>
       <el-select v-model="vault.selectedAccount" placeholder="Select">
         <el-option
           v-for="acc in accounts"
@@ -13,9 +14,8 @@
       <Settings />
     </div>
     <Grid :widgets="widgets" />
-  <!--  -->
+    <!--  -->
   </div>
-
 </template>
 
 <script lang="ts">
@@ -32,7 +32,7 @@ export default defineComponent({
   name: 'App',
   components: {
     Grid,
-    Settings
+    Settings,
   },
   setup() {
     const selectedAccount = ref(null);
@@ -41,12 +41,16 @@ export default defineComponent({
 
     const accounts = asyncComputed(async () => {
       return await getAccounts();
-    }, null)
+    }, null);
 
-    const widgets: ComputedRef<Widget[]> = computed(() => config.widgets.filter(w => w.component in widgetMap).map(w => ({
-      ...w,
-      component: widgetMap[w.component]
-    })))
+    const widgets: ComputedRef<Widget[]> = computed(() =>
+      config.widgets
+        .filter(w => w.component in widgetMap)
+        .map(w => ({
+          ...w,
+          component: widgetMap[w.component],
+        }))
+    );
 
     // const widgets: Widget[] = [
     //   {
@@ -91,7 +95,7 @@ export default defineComponent({
       vault,
       widgets,
       accounts,
-      selectedAccount
+      selectedAccount,
     };
   },
 });
