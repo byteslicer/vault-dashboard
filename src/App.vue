@@ -20,6 +20,8 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, computed, ComputedRef } from 'vue';
+import { ElSelect, ElOption } from 'element-plus';
+
 import Grid, { Widget } from './components/Grid.vue';
 import { useVaultStore } from './stores/vault';
 import { useConfigStore } from './stores/config';
@@ -33,6 +35,8 @@ export default defineComponent({
   components: {
     Grid,
     Settings,
+    ElSelect,
+    ElOption,
   },
   setup() {
     const vault = useVaultStore();

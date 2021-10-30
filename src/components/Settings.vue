@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { ElButton, ElDialog } from 'element-plus';
 import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
 
@@ -35,7 +36,7 @@ import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
 import { useConfigStore } from '../stores/config';
 
 export default defineComponent({
-  components: { PrismEditor },
+  components: { PrismEditor, ElButton, ElDialog },
   setup() {
     const config = useConfigStore();
     const code = ref(JSON.stringify(config.widgets, null, 2));
