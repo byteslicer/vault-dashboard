@@ -80,7 +80,7 @@ export default defineComponent({
     };
 
     const fromDate = DateTime.now()
-      .minus(Duration.fromObject({ days: 14 }))
+      .minus(Duration.fromObject({ days: 7 }))
       .toISO();
 
     axios
