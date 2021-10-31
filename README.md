@@ -2,6 +2,8 @@
 
 A customizeable dashboard for vault operators.
 
+![Dashboard](./dashboard.png)
+
 The dashboard consists of widgets that a user can customize to their liking. The widget's position, size, and content are all customizable. There are two kinds of widgets, General widgets that show price data of the oracle and other public data sources, and there are widgets that display data that corresponds to the configured vault.
 For example, the "Rank" widget allows the Vault operators to quickly view the performance of their vault compared to other Vaults in regards to locked BTC.
 
